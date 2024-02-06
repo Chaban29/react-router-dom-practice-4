@@ -2,10 +2,11 @@ import { Navigate, createBrowserRouter } from 'react-router-dom';
 import { NESTEDROUTES, ROUTES } from '../routes/routes';
 import { HomePage } from '../../pages/HomePage/HomePage';
 import { AboutPage } from '../../pages/AboutPage/AboutPage';
-import { BlogPage } from '../../pages/BlogPage/BlogPage';
+import { BlogPage, blogLoader } from '../../pages/BlogPage/BlogPage';
 import { NotFoundPage } from '../../pages/NotFoundPage/NotFoundPage';
 import { LayoutPage } from '../../components/LayoutPage/LayoutPage';
 import { SinglePage } from '../../pages/SinglePage/SinglePage';
+import { todoLoader } from '../../pages/SinglePage/SinglePage';
 import { CreateTodoPage } from '../../pages/CreateTodoPage/CreatePostPage';
 import { EditTodoPage } from '../../pages/EditTodoPage/EditTodoPage';
 import { RequireAuth } from '../../hoc/RequireAuth';
@@ -44,10 +45,12 @@ export const router = createBrowserRouter([
       {
         path: ROUTES.BLOG,
         element: <BlogPage />,
+        loader: blogLoader,
       },
       {
         path: `${ROUTES.BLOG}/:id`,
         element: <SinglePage />,
+        loader: todoLoader,
       },
       {
         path: `${ROUTES.BLOG}/:id/edit`,
