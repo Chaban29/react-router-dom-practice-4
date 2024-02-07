@@ -1,18 +1,18 @@
 import * as React from 'react';
-import { Suspense } from 'react';
 import {
+  Await,
   NavLink,
   useLoaderData,
   useSearchParams,
   defer,
-  Await,
 } from 'react-router-dom';
 import { BlogFilter } from '../../components/BlogFilter/BlogFilter';
+import { Suspense } from 'react';
 
 export const BlogPage = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
-
   const { todos } = useLoaderData();
+
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const postQuery = searchParams.get('todo') || '';
   const latest = searchParams.has('latest');
@@ -35,16 +35,17 @@ export const BlogPage = () => {
           <Await resolve={todos}>
             {(resolvedTodos) => (
               <>
-                {resolvedTodos
-                  .filter(
-                    (todo) =>
-                      todo.title.includes(postQuery) && todo.id >= startsFrom
-                  )
-                  .map((todo) => (
-                    <NavLink to={`/blog/${todo.id}`} id='link' key={todo.id}>
-                      {todo.title}
-                    </NavLink>
-                  ))}
+                {resolvedTodos &&
+                  resolvedTodos
+                    .filter(
+                      (todo) =>
+                        todo.title.includes(postQuery) && todo.id >= startsFrom
+                    )
+                    .map((todo) => (
+                      <NavLink to={`/blog/${todo.id}`} id='link' key={todo.id}>
+                        {todo.title}
+                      </NavLink>
+                    ))}
               </>
             )}
           </Await>
