@@ -5,7 +5,7 @@ import { AboutPage } from '../../pages/AboutPage/AboutPage';
 import { BlogPage, blogLoader } from '../../pages/BlogPage/BlogPage';
 import { NotFoundPage } from '../../pages/NotFoundPage/NotFoundPage';
 import { LayoutPage } from '../../components/LayoutPage/LayoutPage';
-import { SinglePage, todoLoader } from '../../pages/SinglePage/SinglePage';
+import { SinglePage, todosLoader } from '../../pages/SinglePage/SinglePage';
 import { CreateTodoPage } from '../../pages/CreateTodoPage/CreatePostPage';
 import { EditTodoPage } from '../../pages/EditTodoPage/EditTodoPage';
 import { RequireAuth } from '../../hoc/RequireAuth';
@@ -49,7 +49,7 @@ export const router = createBrowserRouter([
       {
         path: `${ROUTES.BLOG}/:id`,
         element: <SinglePage />,
-        loader: todoLoader,
+        loader: todosLoader,
       },
       {
         path: `${ROUTES.BLOG}/:id/edit`,

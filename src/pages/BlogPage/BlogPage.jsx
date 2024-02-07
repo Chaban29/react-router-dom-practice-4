@@ -1,18 +1,20 @@
 import * as React from 'react';
 import {
-  Await,
   NavLink,
   useLoaderData,
+  Await,
   useSearchParams,
   defer,
 } from 'react-router-dom';
 import { BlogFilter } from '../../components/BlogFilter/BlogFilter';
 import { Suspense } from 'react';
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
 
 export const BlogPage = () => {
-  const { todos } = useLoaderData();
-
   const [searchParams, setSearchParams] = useSearchParams();
+
+  const { todos } = useLoaderData();
 
   const postQuery = searchParams.get('todo') || '';
   const latest = searchParams.has('latest');
@@ -31,7 +33,21 @@ export const BlogPage = () => {
         Add new todo
       </NavLink>
       <div className='todo__list'>
-        <Suspense fallback={<h3>Loading...</h3>}>
+        <Suspense
+          fallback={
+            <Box
+              sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                position: 'relative',
+                left: '20px',
+              }}
+            >
+              <CircularProgress />
+              <span id='loading'>Loading...</span>
+            </Box>
+          }
+        >
           <Await resolve={todos}>
             {(resolvedTodos) => (
               <>
@@ -57,6 +73,11 @@ export const BlogPage = () => {
 
 async function getTodos() {
   const result = await fetch('https://jsonplaceholder.typicode.com/todos');
+
+  if (!result.ok) {
+    throw new Response('', { status: result.status, statusText: 'Not Found' });
+  }
+
   return result.json();
 }
 

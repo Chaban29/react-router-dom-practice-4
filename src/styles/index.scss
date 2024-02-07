@@ -47,9 +47,10 @@
 }
 
 .todo__list {
+  padding-top: 20px;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
 }
 
 #link {
@@ -61,4 +62,11 @@
 
 #top {
   padding-bottom: 35px;
+}
+
+#loading {
+  padding-top: 20px;
+  color: #313439;
+  font-size: 14px;
+  font-weight: 700;
 }

@@ -1,11 +1,10 @@
 import * as React from 'react';
-import { NavLink, Await, useAsyncValue, useLoaderData } from 'react-router-dom';
+import { NavLink, useLoaderData, Await, useAsyncValue } from 'react-router-dom';
 import { Suspense } from 'react';
-
 
 const Todo = () => {
   const todo = useAsyncValue();
-  return <h4>Todo Title: {todo.title}</h4>;
+  return <h4>{todo.title}</h4>;
 };
 
 export const SinglePage = () => {
@@ -27,17 +26,15 @@ export const SinglePage = () => {
   );
 };
 
-export const getTodoById = async (id) => {
+async function getTodoById(id) {
   const result = await fetch(
     `https://jsonplaceholder.typicode.com/todos/${id}`
   );
   return result.json();
-};
+}
 
-export const todoLoader = async ({ params }) => {
+export const todosLoader = async ({ params }) => {
   const id = params.id;
-  return {
-    todo: getTodoById(id),
-    id,
-  };
+
+  return { id, todo: getTodoById(id) };
 };
